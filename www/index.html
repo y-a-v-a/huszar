@@ -10,30 +10,41 @@
 	<!--script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script-->
 	<script type="text/javascript" src="jquery.js"></script>
 	<style type="text/css">
-		body {background-color: #d9d9d9; }
-		.vh-black { background: #333333; }
-		.vh-orange { background: #993333; }
-		.vh-green { background: #336633; }
-		#vh-canvas { width: 596px; height: 555px; border: 1px solid #b4aba4; background: url(Vilmos_Huszar.jpg) -23px -23px no-repeat; margin: 0 auto;}
+		body {background-color: #c9c8c7; }
+		.vh-black { background: #333333; box-shadow: 0 0 5px #888; }
+		.vh-orange { background: #993333; box-shadow: 0 0 5px #888; }
+		.vh-green { background: #336633; box-shadow: 0 0 5px #888; }
+		#vh-canvas { width: 596px; height: 555px; border: 1px solid #b4aba4; background: #d9d9d9; margin: 0 auto; position: relative; border-radius: 2px; box-shadow: 0 0 2px #aaa;}
 		#vh-wrap { position: relative; width: 340px; height: 340px; left: 0px; top: 0px; }
 		#vh-wrap div { position: absolute;}
+		.legend { position: absolute; font-family: OCR B Std,Monaco,Helvetica, Courier New; font-weight: bold; font-size: 17px; color: #222; text-shadow: 0px 1px 2px #444; letter-spacing: -2px;}
+		#month {top: 3px; left: 4px;}
+		#year { top: 3px; right: 0px;}
+		#title { bottom: 0px; left: 2px;}
+		#name { bottom: -3px; right: 0;}
 	</style>
 </head>
 <body>
+	<a onclick="doPause()">pause</a>
 	<div id="vh-canvas">
-		<div id="vh-wrap">
-			<div id="vh-head" class="vh-black"></div>
-			<div id="vh-body" class="vh-green"></div>
-			<div id="vh-limb" class="vh-orange"></div>
-			<div id="vh-leg1" class="vh-orange"></div>
-			<div id="vh-leg2" class="vh-orange"></div>
-			<div id="vh-foot1" class="vh-black"></div>
-			<div id="vh-foot2" class="vh-black"></div>
-		</div>
+		<div id="month" class="legend">SEP.</div>
+		<div id="year" class="legend">2011</div>
+		<div id="title" class="legend">HOMAGE.</div>
+		<div id="name" class="legend">YAVA.</div>
 	</div>
 <script type="text/javascript">
+	var pauze = false;
+	
+	var doPause = function() {
+		if (pauze === false) {
+			pauze = true;
+		} else {
+			pauze = false;
+		}
+	};
+	
 	var positions = {
-		pos1: {
+		0: {
 			head:  [38,0,50,50],
 			body:  [100,0,52,106],
 			limb:  [63,66,25,40],
@@ -43,7 +54,7 @@
 			foot2: [0,118,24,62],
 			wrap:  [484,26,340,340]
 		},
-		pos3: {
+		1: {
 			head:  [0,0,62,34],
 			body:  [68,46,54,82],
 			limb:  [134,106,40,22],
@@ -53,7 +64,7 @@
 			foot2: [134,196,60,22],
 			wrap:  [692,166,340,340]
 		},
-		pos5: {
+		2: {
 			head:  [0,0,57,52],
 			body:  [71,41,56,91],
 			limb:  [137,87,25,46],
@@ -63,7 +74,7 @@
 			foot2: [218,145,19,64],
 			wrap:  [878,69,340,340]
 		},
-		pos11: {
+		3: {
 			head:  [162,0,52,52],
 			body:  [101,58,50,98],
 			limb:  [69,119,22,37],
@@ -73,7 +84,7 @@
 			foot2: [0,172,23,59],
 			wrap:  [964,310,340,340]
 		},
-		pos12: {
+		4: {
 			head:  [0,0,55,51],
 			body:  [72,60,48,101],
 			limb:  [139,123,26,38],
@@ -83,7 +94,7 @@
 			foot2: [212,183,21,64],
 			wrap:  [945,654,340,340]
 		},
-		pos13: {
+		5: {
 			head:  [0,0,64,33],
 			body:  [78,35,51,93],
 			limb:  [144,110,45,18],
@@ -93,7 +104,7 @@
 			foot2: [144,193,55,18],
 			wrap:  [749,777,340,340]
 		},
-		pos14: {
+		6: {
 			head:  [84,0,50,47],
 			body:  [13,0,52,103],
 			limb:  [84,64,31,39],
@@ -103,7 +114,7 @@
 			foot2: [155,120,24,62],
 			wrap:  [529,841,340,340]
 		},
-		pos15: {
+		7: {
 			head:  [133,0,64,36],
 			body:  [72,41,53,93],
 			limb:  [12,116,43,21],
@@ -113,7 +124,7 @@
 			foot2: [0,211,55,21],
 			wrap:  [272,771,340,340]
 		},
-		pos16: {
+		8: {
 			head:  [189,0,55,54],
 			body:  [126,68,53,96],
 			limb:  [85,126,26,38],
@@ -123,7 +134,7 @@
 			foot2: [0,182,22,64],
 			wrap:  [12,655,340,340]
 		},
-		pos6: {
+		9: {
 			head:  [0,0,60,35],
 			body:  [66,45,45,93],
 			limb:  [125,115,42,23],
@@ -133,7 +144,7 @@
 			foot2: [126,223,53,21],
 			wrap:  [4,338,340,340]
 		},
-		pos8: {
+		10: {
 			head:  [0,0,65,35],
 			body:  [75,44,52,88],
 			limb:  [145,111,41,21],
@@ -143,7 +154,7 @@
 			foot2: [145,213,56,21],
 			wrap:  [251,449,340,340]
 		},
-		pos9: {
+		11: {
 			head:  [154,0,52,50],
 			body:  [109,67,50,85],
 			limb:  [70,117,24,35],
@@ -153,7 +164,7 @@
 			foot2: [0,167,20,60],
 			wrap:  [505,528,340,340]
 		},
-		pos10: {
+		12: {
 			head:  [119,0,61,33],
 			body:  [60,40,51,88],
 			limb:  [8,109,42,19],
@@ -163,7 +174,7 @@
 			foot2: [0,211,50,20],
 			wrap:  [758,455,340,340]
 		},
-		pos7: {
+		13: {
 			head:  [132,0,63,34],
 			body:  [69,25,51,86],
 			limb:  [14,89,42,22],
@@ -173,7 +184,7 @@
 			foot2: [2,174,54,20],
 			wrap:  [515,330,340,340]
 		},
-		pos2: {
+		14: {
 			head:  [0,0,50,50],
 			body:  [56,50,50,86],
 			limb:  [116,98,26,38],
@@ -183,7 +194,7 @@
 			foot2: [184,148,24,60],
 			wrap:  [288,159,340,340]
 		},
-		pos4: {
+		15: {
 			head:  [121,0,66,32],
 			body:  [63,40,54,94],
 			limb:  [7,110,46,24],
@@ -193,28 +204,73 @@
 			foot2: [0,214,53,22],
 			wrap:  [93,73,340,340]
 		}
-	}
+	};
 
-	var myInit = function(positions) {
-		for (i in positions) {
-			for (j in positions[i]) {
+	var myInit = function(pos) {
+		var i,j;
+		for (i = 0; i < pos.length; i++) {
+			for (j in positions[pos[i]]) {
+				$('#vh-pos-'+i).text(pos[i]);
 				var p = { left: '', top: '', width: '', height: '' }, l = 0;
 				for (k in p) {
-					p[k] =  parseInt(positions[i][j][l++] * .5);
+					p[k] =  parseInt(positions[pos[i]][j][l++] * .5);
 				}
-				$('#vh-' + j).animate(p, 'fast').delay(500);
+				$('#vh-' + j + '-' + i).animate(p, 500).delay(800);
 			}
 		}
-	}
+	};
+	
+	var setUpInstances = function() {
+		var nrs = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+		for (var i = 0; i < 16; i++) {
+			var wrapper, head, body, limb, leg1, leg2, foot1, foot2;
+			wrapper = $('<div/>', { id: 'vh-wrap-'+ i, style: 'position: absolute; width: 340px; height: 340px; left: 0px; top: 0px;'});
+			$('<div/>', { id : 'vh-head-' + i, class : 'vh-black', style: 'position: absolute;' }).appendTo(wrapper);
+			$('<div/>', { id : 'vh-body-' + i, class : 'vh-green', style: 'position: absolute;' }).appendTo(wrapper);
+			$('<div/>', { id : 'vh-limb-' + i, class : 'vh-orange', style: 'position: absolute;' }).appendTo(wrapper);
+			$('<div/>', { id : 'vh-leg1-' + i, class : 'vh-orange', style: 'position: absolute;' }).appendTo(wrapper);
+			$('<div/>', { id : 'vh-leg2-' + i, class : 'vh-orange', style: 'position: absolute;' }).appendTo(wrapper);
+			$('<div/>', { id : 'vh-foot1-' + i, class : 'vh-black', style: 'position: absolute;' }).appendTo(wrapper);
+			$('<div/>', { id : 'vh-foot2-' + i, class : 'vh-black', style: 'position: absolute;' }).appendTo(wrapper);
+			$('<div/>', { id : 'vh-pos-' + i, style: 'visibility: hidden;' }).text(i).appendTo(wrapper);
+			
+			wrapper.appendTo('#vh-canvas');
+		}
+		myInit(nrs);
+	};
 	
 	var checkQueue = function() {
-		if (!!$('#vh-foot2') && $('#vh-foot2').queue('fx').length == 0) {
-			myInit(positions);
+		if (pauze == true) {
+			return;
 		}
-	}
+		if (!!$('#vh-foot2-15') && $('#vh-foot2-15').queue('fx').length == 0) {
+			handlePos();
+		}
+	};
+	
+	var handlePos = function() {
+		var nrs = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+		var l, idx, r, pos, newpos = [], j = 0;
+		for(var i = 0; i < 16; i++) {
+			pos = parseInt($('#vh-pos-'+i).text());
+			l = nrs.length;
+			do {
+				if (j > 100) {
+					console.log('endless loop');
+					break;
+				}
+				idx = Math.round((Math.random() * l));
+				j++;
+			} while (nrs[idx] === undefined);
+			r = nrs.splice(idx,1);
+			newpos[i] = r[0];
+		}
+		 console.log(newpos);
+		myInit(newpos);
+	};
 
-	myInit(positions);
-	setInterval(function() { checkQueue(); },250);
+	setUpInstances();
+	setInterval(function() { checkQueue(); }, 200);
 </script>
 </body>
 </html>
