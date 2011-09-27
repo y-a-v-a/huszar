@@ -8,10 +8,9 @@
 	<title>Vilmos Huszar</title>
 	<meta name="description" content="">
 	<!--script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script-->
-	<script type="text/javascript" src="jquery.js"></script>
 	<style type="text/css">
 		body {background-color: #c9c8c7; }
-		.vh-black { background: #333333; box-shadow: 0 0 4px 3px #e3e3e3; }
+		.vh-black { background: #333333; box-shadow: 0 0 4px 3px #e3e3e3;}
 		.vh-orange { background: #993333; box-shadow: 0 0 4px 2px #ccc; }
 		.vh-green { background: #336633; box-shadow: 0 0 4px 2px #ccc; }
 		#vh-canvas { width: 596px; height: 555px; border: 1px solid #b4aba4; background: #d9d9d9; margin: 0 auto; position: relative; border-radius: 2px; box-shadow: 0 0 2px #aaa;}
@@ -42,6 +41,25 @@
 			pauze = false;
 		}
 	};
+	
+	var hood = {
+		0: [1,2,13,14,15],
+		1: [0,2,3,12,13],
+		2: [0,1,3],
+		3: [1,2,4,12],
+		4: [3,5,12],
+		5: [4,6,11,12],
+		6: [5,7,11],
+		7: [6,8,10,11],
+		8: [7,9,10],
+		9: [8,10,14,15],
+		10: [6,7,8,9,11,13,14,15],
+		11: [5,6,7,10,12,13,14],
+		12: [1,3,4,5,11,13],
+		13: [0,1,10,11,12,14],
+		14: [0,9,10,13,15],
+		15: [0,9,10,14]
+	}
 	
 	var positions = {
 		0: {
@@ -232,6 +250,7 @@
 			$('<div/>', { id : 'vh-leg2-' + i, class : 'vh-orange', style: 'position: absolute;' }).appendTo(wrapper);
 			$('<div/>', { id : 'vh-foot1-' + i, class : 'vh-black', style: 'position: absolute;' }).appendTo(wrapper);
 			$('<div/>', { id : 'vh-foot2-' + i, class : 'vh-black', style: 'position: absolute;' }).appendTo(wrapper);
+//			$('<div/>', { id : 'vh-pos-' + i}).text(i).appendTo(wrapper);
 			$('<div/>', { id : 'vh-pos-' + i, style: 'visibility: hidden;' }).text(i).appendTo(wrapper);
 			
 			wrapper.appendTo('#vh-canvas');
@@ -249,28 +268,48 @@
 	};
 	
 	var handlePos = function() {
-		var nrs = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+		var nrs, h = $.extend(true, {}, hood);// = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
 		var l, idx, r, pos, newpos = [], j = 0;
-		for(var i = 0; i < 16; i++) {
+		mylabel: for(var i = 0; i < 16; i++) {
 			pos = parseInt($('#vh-pos-'+i).text());
+			nrs = h[pos];
 			l = nrs.length;
-			do {
-				if (j > 100) {
-					console.log('endless loop');
-					break;
-				}
-				idx = Math.round((Math.random() * l));
-				j++;
-			} while (nrs[idx] === undefined);
+			if (l === 1) {
+				idx = 0;
+			} else {
+				do {
+					if (j == 100) {
+						for (var j = 0; j < 16; j++) {
+							if (!arraysearch(newpos, j) && j !== i) {
+								newpos[i] = j;
+								continue mylabel;
+							}
+						}
+						break;
+					}
+					idx = Math.round((Math.random() * l));
+					j++;
+				} while (nrs[idx] === undefined || arraysearch(newpos,nrs[idx]));
+			}
 			r = nrs.splice(idx,1);
 			newpos[i] = r[0];
 		}
-		 console.log(newpos);
+	//	 console.log(newpos);
 		myInit(newpos);
 	};
+	
+	var arraysearch = function(h,n) {
+		for (var i = 0; i < h.length; i++) {
+			if(h[i] === n) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	setUpInstances();
-	setInterval(function() { checkQueue(); }, 200);
+	setInterval(function() { checkQueue(); }, 2000);
 </script>
+<script type="text/javascript" src="jquery.js"></script>
 </body>
 </html>
