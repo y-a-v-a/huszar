@@ -1,3 +1,10 @@
+/**
+ * Homage a Vilmos Huszár
+ * (c) y-a-v-a - Vincent Bruijn - 2011
+ * License: http://creativecommons.org/licenses/by-nc-sa/3.0/
+ * Based upon http://stackoverflow.com/questions/5766160/enumerate-all-hamiltonian-paths#answer-7193700
+ * Hamiltonian cycle javascript class, see also http://en.wikipedia.org/wiki/Hamiltonian_cycle
+ */
 var Hamilton = function(graph) {
     "use strict";
     this.graph = graph;

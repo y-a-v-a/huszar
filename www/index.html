@@ -2,36 +2,35 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>Vilmos Huszar | Yava | title: Homage | technique: programming code</title>
-		<meta name="description" content="">
-		<!--script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script-->
-		<script src="jquery.js"></script>
-		<style>
-			body {background-color: #c9c8c7; }
-			.vh-black { background: #333333; box-shadow: 0 0 4px 3px #e3e3e3; position: absolute; }
-			.vh-orange { background: #993333; box-shadow: 0 0 4px 2px #ccc; position: absolute; }
-			.vh-green { background: #336633; box-shadow: 0 0 4px 2px #ccc; position: absolute; }
-			#vh-canvas { width: 596px; height: 555px; border: 1px solid #b4aba4;
-				background: #d9d9d9; margin: 0 auto; position: relative; border-radius: 2px; box-shadow: 0 0 2px #aaa; }
-			.vh-wrap { position: absolute; width: 340px; height: 340px; left: 0px; top: 0px; }
-			.legend { position: absolute; font-family: OCR B Std, Monaco, Courier New;
-				font-weight: bold; font-size: 16px; color: #222; text-shadow: 0px 1px 2px #eee; letter-spacing: -3px; }
-			#month { top: 6px; left: 1px; }
-			#year { top: 3px; right: 0px; }
-			#title { bottom: 0px; left: 2px; }
-			#name { bottom: -3px; right: 0; }
-			#controlls { position: absolute; border: 1px solid #333; top: 10px; left: -51px; padding: 6px; border-radius: 8px;
-				color: #fff; font-family: OCR B Std, Monaco, Courier New; background: #666; font-size: 11px; }
-			#pause, #open { cursor: pointer; }
-			#pause { width: 40px; display: inline-block;}
-		</style>
+		<title>Homage à Vilmos Huszár | by Yava | technique: html5 and javascript programming code</title>
+		<meta name="description" content="Homage à Vilmos Huszár">
+		<meta name="keywords" content="">
+		<meta name="author" content="y-a-v-a">
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="huszar.css">
+		<!--
+		.::   .::         .::          .::     .::         .::    
+		 .:: .:: .::::: .::  .:: .::::: .::   .:: .::::: .::  .:: 
+		   .:::        .::   .::         .:: .::        .::   .:: 
+		    .::        .::   .::          .:.::         .::   .:: 
+		   .::           .:: .:::          .::            .:: .:::
+		 .::
+		 -->
 	</head>
 	<body>
-		<div id="controlls">
-			<a id="pause" onclick="doPause()">pause</a><span id="open">&nbsp;&raquo;</span>
+		<div id="desc">
+			Vilmos Huszár's painting was the inspiration for this piece from y-a-v-a. All positions of the skaters are nodes on a graph. The nodes have different connections so there is a Hamiltonian cycle possible. These Hamiltonian cycles are calculated by a recursive script that searches through all connections. In this case there are about 1380 cycles. The painting is built up bij processing each found Hamiltonian cycle.
+			* http://nl.wikipedia.org/wiki/Vilmos_Husz%C3%A1r
+			* http://en.wikipedia.org/wiki/Hamiltonian_cycle
+		</div>
+		<div id="controlls" class="info">
+			<a id="pause" onclick="doPause()">pause</a><span id="open" class="open">&nbsp;&raquo;</span>
+		</div>
+		<div id="info" class="info">
+			<span>Homage à Vilmos Huszár | by <a href="http://www.y-a-v-a.org">y-a-v-a.org</a></span><span id="openinfo" class="open">&nbsp;&raquo;</span>
 		</div>
 		<div id="vh-canvas">
-			<div id="month" class="legend">FEB.</div>
+			<div id="month" class="legend">OCT.</div>
 			<div id="year" class="legend">2011</div>
 			<div id="title" class="legend">HOMAGE.</div>
 			<div id="name" class="legend">YAVA.</div>

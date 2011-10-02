@@ -1,4 +1,14 @@
+/**
+ * Homage a Vilmos Huszár
+ * (c) y-a-v-a - Vincent Bruijn - 2011
+ * License: http://creativecommons.org/licenses/by-nc-sa/3.0/
+ */
 var pause = false, debugMode = false, poz = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+
+if (typeof console === "undefined" || typeof console.log === "undefined") {
+    console = {};
+    console.log = function() {};
+}
 
 var doPause = function() {
 	"use strict";
@@ -287,17 +297,28 @@ var debug = function() {
     return true;
 };
 
-$("span#open").click(function() {
+var myanimate = function(controlls, target, amt, txt) {
+    controlls.animate({ left: amt });
+    target.html('&nbsp;' + txt);
+};
+
+$("#open").click(function() {
     var controlls = $("#controlls");
-    var myanimate = function(controlls, target, amt, txt) {
-        controlls.animate({ left: amt });
-        target.html('&nbsp;' + txt);
-    }
     if (parseInt(controlls.css('left'), 10) < 0) {
         myanimate(controlls, $(this), '10px', '&laquo;');
-        window.setTimeout(myanimate, 5000, controlls, $(this), '-51px', '&raquo;');
+        window.setTimeout(myanimate, 4000, controlls, $(this), '-51px', '&raquo;');
     } else {
         myanimate(controlls, $(this), '-51px', '&raquo;');
+    }
+});
+
+$("#openinfo").click(function() {
+    var info = $("#info");
+    if (parseInt(info.css('left'), 10) < 0) {
+        myanimate(info, $(this), '10px', '&laquo;');
+        window.setTimeout(myanimate, 4000, info, $(this), '-323px', '&raquo;');
+    } else {
+        myanimate(info, $(this), '-323px', '&raquo;');
     }
 });
 
