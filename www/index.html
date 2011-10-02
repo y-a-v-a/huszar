@@ -1,315 +1,43 @@
 <!DOCTYPE html>
-
 <html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Vilmos Huszar | Yava | title: Homage | technique: programming code</title>
+		<meta name="description" content="">
+		<!--script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script-->
+		<script src="jquery.js"></script>
+		<style>
+			body {background-color: #c9c8c7; }
+			.vh-black { background: #333333; box-shadow: 0 0 4px 3px #e3e3e3; position: absolute; }
+			.vh-orange { background: #993333; box-shadow: 0 0 4px 2px #ccc; position: absolute; }
+			.vh-green { background: #336633; box-shadow: 0 0 4px 2px #ccc; position: absolute; }
+			#vh-canvas { width: 596px; height: 555px; border: 1px solid #b4aba4;
+				background: #d9d9d9; margin: 0 auto; position: relative; border-radius: 2px; box-shadow: 0 0 2px #aaa; }
+			.vh-wrap { position: absolute; width: 340px; height: 340px; left: 0px; top: 0px; }
+			.legend { position: absolute; font-family: OCR B Std, Monaco, Courier New;
+				font-weight: bold; font-size: 16px; color: #222; text-shadow: 0px 1px 2px #eee; letter-spacing: -3px; }
+			#month { top: 6px; left: 1px; }
+			#year { top: 3px; right: 0px; }
+			#title { bottom: 0px; left: 2px; }
+			#name { bottom: -3px; right: 0; }
+			#controlls { position: absolute; border: 1px solid #333; top: 10px; left: -51px; padding: 6px; border-radius: 8px;
+				color: #fff; font-family: OCR B Std, Monaco, Courier New; background: #666; font-size: 11px; }
+			#pause, #open { cursor: pointer; }
+			#pause { width: 40px; display: inline-block;}
+		</style>
+	</head>
+	<body>
+		<div id="controlls">
+			<a id="pause" onclick="doPause()">pause</a><span id="open">&nbsp;&raquo;</span>
+		</div>
+		<div id="vh-canvas">
+			<div id="month" class="legend">FEB.</div>
+			<div id="year" class="legend">2011</div>
+			<div id="title" class="legend">HOMAGE.</div>
+			<div id="name" class="legend">YAVA.</div>
+		</div>
+		<script src="hamiltonian.js"></script>
+		<script src="huszar.js"></script>
 
-<head>
-
-	<meta charset="utf-8">
-	<title>Vilmos Huszar</title>
-	<meta name="description" content="">
-	<!--script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script-->
-	<style type="text/css">
-		body {background-color: #c9c8c7; }
-		.vh-black { background: #333333; box-shadow: 0 0 4px 3px #e3e3e3;}
-		.vh-orange { background: #993333; box-shadow: 0 0 4px 2px #ccc; }
-		.vh-green { background: #336633; box-shadow: 0 0 4px 2px #ccc; }
-		#vh-canvas { width: 596px; height: 555px; border: 1px solid #b4aba4; background: #d9d9d9; margin: 0 auto; position: relative; border-radius: 2px; box-shadow: 0 0 2px #aaa;}
-		#vh-wrap { position: relative; width: 340px; height: 340px; left: 0px; top: 0px; }
-		#vh-wrap div { position: absolute;}
-		.legend { position: absolute; font-family: OCR B Std,Monaco,Helvetica, Courier New; font-weight: bold; font-size: 16px; color: #222; text-shadow: 0px 1px 2px #eee; letter-spacing: -3px;}
-		#month {top: 6px; left: 1px;}
-		#year { top: 3px; right: 0px;}
-		#title { bottom: 0px; left: 2px;}
-		#name { bottom: -3px; right: 0;}
-	</style>
-</head>
-<body>
-	<a onclick="doPause()">pause</a>
-	<div id="vh-canvas">
-		<div id="month" class="legend">FEB.</div>
-		<div id="year" class="legend">2011</div>
-		<div id="title" class="legend">HOMAGE.</div>
-		<div id="name" class="legend">YAVA.</div>
-	</div>
-<script type="text/javascript">
-	var pauze = false;
-	
-	var doPause = function() {
-		if (pauze === false) {
-			pauze = true;
-		} else {
-			pauze = false;
-		}
-	};
-	
-	var hood = {
-		0: [1,2,13,14,15],
-		1: [0,2,3,12,13],
-		2: [0,1,3],
-		3: [1,2,4,12],
-		4: [3,5,12],
-		5: [4,6,11,12],
-		6: [5,7,11],
-		7: [6,8,10,11],
-		8: [7,9,10],
-		9: [8,10,14,15],
-		10: [6,7,8,9,11,13,14,15],
-		11: [5,6,7,10,12,13,14],
-		12: [1,3,4,5,11,13],
-		13: [0,1,10,11,12,14],
-		14: [0,9,10,13,15],
-		15: [0,9,10,14]
-	}
-	
-	var positions = {
-		0: {
-			head:  [38,0,50,50],
-			body:  [100,0,52,106],
-			limb:  [63,66,25,40],
-			leg1:  [100,118,26,100],
-			leg2:  [31,118,57,26],
-			foot1: [100,230,60,22],
-			foot2: [0,118,24,62],
-			wrap:  [484,26,340,340]
-		},
-		1: {
-			head:  [0,0,62,34],
-			body:  [68,46,54,82],
-			limb:  [134,106,40,22],
-			leg1:  [96,136,26,102],
-			leg2:  [134,140,26,46],
-			foot1: [96,246,60,22],
-			foot2: [134,196,60,22],
-			wrap:  [692,166,340,340]
-		},
-		2: {
-			head:  [0,0,57,52],
-			body:  [71,41,56,91],
-			limb:  [137,87,25,46],
-			leg1:  [101,144,26,98],
-			leg2:  [137,145,67,26],
-			foot1: [72,253,58,20],
-			foot2: [218,145,19,64],
-			wrap:  [878,69,340,340]
-		},
-		3: {
-			head:  [162,0,52,52],
-			body:  [101,58,50,98],
-			limb:  [69,119,22,37],
-			leg1:  [107,172,25,99],
-			leg2:  [32,172,60,26],
-			foot1: [107,291,60,20],
-			foot2: [0,172,23,59],
-			wrap:  [964,310,340,340]
-		},
-		4: {
-			head:  [0,0,55,51],
-			body:  [72,60,48,101],
-			limb:  [139,123,26,38],
-			leg1:  [94,183,26,113],
-			leg2:  [139,183,58,23],
-			foot1: [61,309,59,21],
-			foot2: [212,183,21,64],
-			wrap:  [945,654,340,340]
-		},
-		5: {
-			head:  [0,0,64,33],
-			body:  [78,35,51,93],
-			limb:  [144,110,45,18],
-			leg1:  [101,140,25,94],
-			leg2:  [144,142,24,40],
-			foot1: [101,244,55,20],
-			foot2: [144,193,55,18],
-			wrap:  [749,777,340,340]
-		},
-		6: {
-			head:  [84,0,50,47],
-			body:  [13,0,52,103],
-			limb:  [84,64,31,39],
-			leg1:  [38,120,27,98],
-			leg2:  [84,120,56,25],
-			foot1: [0,230,66,22],
-			foot2: [155,120,24,62],
-			wrap:  [529,841,340,340]
-		},
-		7: {
-			head:  [133,0,64,36],
-			body:  [72,41,53,93],
-			limb:  [12,116,43,21],
-			leg1:  [72,152,22,90],
-			leg2:  [32,151,23,50],
-			foot1: [36,257,58,21],
-			foot2: [0,211,55,21],
-			wrap:  [272,771,340,340]
-		},
-		8: {
-			head:  [189,0,55,54],
-			body:  [126,68,53,96],
-			limb:  [85,126,26,38],
-			leg1:  [126,182,26,98],
-			leg2:  [42,182,69,25],
-			foot1: [126,303,64,20],
-			foot2: [0,182,22,64],
-			wrap:  [12,655,340,340]
-		},
-		9: {
-			head:  [0,0,60,35],
-			body:  [66,45,45,93],
-			limb:  [125,115,42,23],
-			leg1:  [85,153,26,90],
-			leg2:  [126,153,24,61],
-			foot1: [84,271,57,22],
-			foot2: [126,223,53,21],
-			wrap:  [4,338,340,340]
-		},
-		10: {
-			head:  [0,0,65,35],
-			body:  [75,44,52,88],
-			limb:  [145,111,41,21],
-			leg1:  [103,146,24,93],
-			leg2:  [145,146,24,56],
-			foot1: [103,253,61,21],
-			foot2: [145,213,56,21],
-			wrap:  [251,449,340,340]
-		},
-		11: {
-			head:  [154,0,52,50],
-			body:  [109,67,50,85],
-			limb:  [70,117,24,35],
-			leg1:  [109,167,28,85],
-			leg2:  [32,167,62,25],
-			foot1: [109,267,61,20],
-			foot2: [0,167,20,60],
-			wrap:  [505,528,340,340]
-		},
-		12: {
-			head:  [119,0,61,33],
-			body:  [60,40,51,88],
-			limb:  [8,109,42,19],
-			leg1:  [64,143,25,88],
-			leg2:  [25,142,25,58],
-			foot1: [35,252,54,22],
-			foot2: [0,211,50,20],
-			wrap:  [758,455,340,340]
-		},
-		13: {
-			head:  [132,0,63,34],
-			body:  [69,25,51,86],
-			limb:  [14,89,42,22],
-			leg1:  [69,124,23,93],
-			leg2:  [32,124,23,40],
-			foot1: [42,227,51,20],
-			foot2: [2,174,54,20],
-			wrap:  [515,330,340,340]
-		},
-		14: {
-			head:  [0,0,50,50],
-			body:  [56,50,50,86],
-			limb:  [116,98,26,38],
-			leg1:  [80,148,26,92],
-			leg2:  [116,148,60,26],
-			foot1: [50,250,56,24],
-			foot2: [184,148,24,60],
-			wrap:  [288,159,340,340]
-		},
-		15: {
-			head:  [121,0,66,32],
-			body:  [63,40,54,94],
-			limb:  [7,110,46,24],
-			leg1:  [63,146,26,100],
-			leg2:  [27,146,26,56],
-			foot1: [35,252,54,22],
-			foot2: [0,214,53,22],
-			wrap:  [93,73,340,340]
-		}
-	};
-
-	var myInit = function(pos) {
-		var i,j;
-		for (i = 0; i < pos.length; i++) {
-			for (j in positions[pos[i]]) {
-				$('#vh-pos-'+i).text(pos[i]);
-				var p = { left: '', top: '', width: '', height: '' }, l = 0;
-				for (k in p) {
-					p[k] =  parseInt(positions[pos[i]][j][l++] * .5);
-				}
-				$('#vh-' + j + '-' + i).animate(p, 500).delay(800);
-			}
-		}
-	};
-	
-	var setUpInstances = function() {
-		var nrs = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
-		for (var i = 0; i < 16; i++) {
-			var wrapper, head, body, limb, leg1, leg2, foot1, foot2;
-			wrapper = $('<div/>', { id: 'vh-wrap-'+ i, style: 'position: absolute; width: 340px; height: 340px; left: 0px; top: 0px;'});
-			$('<div/>', { id : 'vh-head-' + i, class : 'vh-black', style: 'position: absolute;' }).appendTo(wrapper);
-			$('<div/>', { id : 'vh-body-' + i, class : 'vh-green', style: 'position: absolute;' }).appendTo(wrapper);
-			$('<div/>', { id : 'vh-limb-' + i, class : 'vh-orange', style: 'position: absolute;' }).appendTo(wrapper);
-			$('<div/>', { id : 'vh-leg1-' + i, class : 'vh-orange', style: 'position: absolute;' }).appendTo(wrapper);
-			$('<div/>', { id : 'vh-leg2-' + i, class : 'vh-orange', style: 'position: absolute;' }).appendTo(wrapper);
-			$('<div/>', { id : 'vh-foot1-' + i, class : 'vh-black', style: 'position: absolute;' }).appendTo(wrapper);
-			$('<div/>', { id : 'vh-foot2-' + i, class : 'vh-black', style: 'position: absolute;' }).appendTo(wrapper);
-//			$('<div/>', { id : 'vh-pos-' + i}).text(i).appendTo(wrapper);
-			$('<div/>', { id : 'vh-pos-' + i, style: 'visibility: hidden;' }).text(i).appendTo(wrapper);
-			
-			wrapper.appendTo('#vh-canvas');
-		}
-		myInit(nrs);
-	};
-	
-	var checkQueue = function() {
-		if (pauze == true) {
-			return;
-		}
-		if (!!$('#vh-foot2-15') && $('#vh-foot2-15').queue('fx').length == 0) {
-			handlePos();
-		}
-	};
-	
-	var handlePos = function() {
-		var nrs, h = $.extend(true, {}, hood);// = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
-		var l, idx, r, pos, newpos = [], j = 0;
-		mylabel: for(var i = 0; i < 16; i++) {
-			pos = parseInt($('#vh-pos-'+i).text());
-			nrs = h[pos];
-			l = nrs.length;
-			if (l === 1) {
-				idx = 0;
-			} else {
-				do {
-					if (j == 100) {
-						for (var j = 0; j < 16; j++) {
-							if (!arraysearch(newpos, j) && j !== i) {
-								newpos[i] = j;
-								continue mylabel;
-							}
-						}
-						break;
-					}
-					idx = Math.round((Math.random() * l));
-					j++;
-				} while (nrs[idx] === undefined || arraysearch(newpos,nrs[idx]));
-			}
-			r = nrs.splice(idx,1);
-			newpos[i] = r[0];
-		}
-	//	 console.log(newpos);
-		myInit(newpos);
-	};
-	
-	var arraysearch = function(h,n) {
-		for (var i = 0; i < h.length; i++) {
-			if(h[i] === n) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	setUpInstances();
-	setInterval(function() { checkQueue(); }, 2000);
-</script>
-<script type="text/javascript" src="jquery.js"></script>
-</body>
+	</body>
 </html>
