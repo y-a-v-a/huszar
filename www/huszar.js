@@ -313,13 +313,18 @@ $("#open").click(function() {
 });
 
 $("#openinfo").click(function() {
-    var info = $("#info");
+    var info = $("#info"), wdth;
+    wdth = info.width();
     if (parseInt(info.css('left'), 10) < 0) {
         myanimate(info, $(this), '10px', '&laquo;');
-        window.setTimeout(myanimate, 4000, info, $(this), '-323px', '&raquo;');
+        window.setTimeout(myanimate, 4000, info, $(this), (-wdth + 4), '&raquo;');
     } else {
-        myanimate(info, $(this), '-323px', '&raquo;');
+        myanimate(info, $(this), (-wdth + 4), '&raquo;');
     }
+});
+
+$(window).load(function() {
+    $("#info").css('left',(- $("#info").width() + 4))
 });
 
 setUpInstances();
