@@ -1,5 +1,5 @@
 /**
- * Homage a Vilmos Huszár
+ * Hommage a Vilmos Huszár
  * (c) y-a-v-a - Vincent Bruijn - 2011
  * License: http://creativecommons.org/licenses/by-nc-sa/3.0/
  */
