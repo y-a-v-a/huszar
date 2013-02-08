@@ -15,6 +15,7 @@ Hamilton.prototype = {
     path : [],
     pathCount : 0,
     lib : [],
+    done : false,
 
     isCycle : function (path) {
         "use strict";
@@ -80,5 +81,6 @@ Hamilton.prototype = {
         "use strict";
         this.path[0] = startNode;
         this.findHamiltonPath(this.graph, startNode - 1, 0);
+        this.done = true;
     }
 };
