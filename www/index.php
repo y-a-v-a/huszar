@@ -48,6 +48,7 @@
 		</div>
 		<script src="jquery-2.0.3.min.js"></script>
 		<script src="huszar.js"></script>
+        <script src="hamiltonian.js"></script>
 		<script>
 		var _gaq=_gaq||[];_gaq.push(["_setAccount","UA-16179947-14"]);_gaq.push(["_setDomainName","vilmos-huszar.org"]);_gaq.push(["_trackPageview"]);(function(){var e=document.createElement("script");e.type="text/javascript";e.async=true;e.src=("https:"==document.location.protocol?"https://ssl":"http://www")+".google-analytics.com/ga.js";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)})()
 		</script>

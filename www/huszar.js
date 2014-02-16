@@ -3,10 +3,17 @@
  * (c) y-a-v-a - Vincent Bruijn - 2011-2013
  * License: http://creativecommons.org/licenses/by-nc-sa/3.0/
  */
-var pause = false
-, debugMode = false
-, poz = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
-, paths =
+if (typeof console === "undefined" || typeof console.log === "undefined") {
+    window.console = {};
+    window.console.log = function() {};
+}
+
+var pause = false,
+debugMode = false,
+hamilton,
+possiblePaths,
+poz = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
+paths =
  [ '2,1,3,4,5,6,7,8,9,10,16,15,11,12,13,14',
    '2,1,3,4,5,6,7,8,9,10,16,15,11,12,14,13',
    '2,1,3,4,5,6,7,8,9,10,16,15,11,14,12,13',
@@ -1386,38 +1393,9 @@ var pause = false
    '2,14,15,16,10,11,9,8,7,12,6,13,5,4,3,1',
    '2,14,15,16,10,11,9,8,7,12,13,6,5,4,3,1',
    '2,14,15,16,10,11,9,8,12,7,6,5,13,4,3,1',
-   '2,14,15,16,10,11,9,8,12,7,6,13,5,4,3,1' ];
+   '2,14,15,16,10,11,9,8,12,7,6,13,5,4,3,1' ],
 
-if (typeof console === "undefined" || typeof console.log === "undefined") {
-    window.console = {};
-    window.console.log = function() {};
-}
-
-var doPause = function() {
-	"use strict";
-	if (pause === false) {
-		pause = true;
-		$('#pause').html('run');
-		console.log("Paused...");
-	} else {
-		pause = false;
-		$('#pause').html('pause');
-		console.log("Running...");
-	}
-};
-
-var arraysearch = function(h,n) {
-	"use strict";
-	var i;
-	for (i = 0; i < h.length; i += 1) {
-		if(h[i] === n) {
-			return true;
-		}
-	}
-	return false;
-};
-
-var positions = {
+positions = {
 	0: {
 		head:  [38,0,50,50],
 		body:  [100,0,52,106],
@@ -1578,9 +1556,9 @@ var positions = {
 		foot2: [0,214,53,22],
 		wrap:  [93,73,340,340]
 	}
-};
+},
 
-var hashtable = [
+hashtable = [
 	[0,1,1,0,0,0,0,0,0,0,0,0,0,1,1,1],
 	[1,0,1,1,0,0,0,0,0,0,0,0,1,1,0,0],
 	[1,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -1597,9 +1575,9 @@ var hashtable = [
 	[1,1,0,0,0,0,0,0,0,0,1,1,1,0,1,0],
 	[1,0,0,0,0,0,0,0,0,1,1,0,0,1,0,1],
 	[1,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0]
-];
+],
 
-var myInit = function myInit(pos) {
+initialize = function initialize(pos) {
 	"use strict";
 	var i,j,p,l,k;
 	for (i = 0; i < pos.length; i += 1) {
@@ -1611,18 +1589,18 @@ var myInit = function myInit(pos) {
 				p[k] =  parseInt(positions[pos[i]][j][l] * 0.5, 10);
 				l += 1;
 			}
-			$('#vh-' + j + '-' + i).animate(p, {duration: 800, queue: 'myanimatee'});
+			$('#vh-' + j + '-' + i).animate(p, {duration: 800, queue: 'skaterQueue'});
 		}
 	}
 
-	$.when($('#vh-canvas div').dequeue('myanimatee').delay(1500)).then(function() {
+	$.when($('#vh-canvas div').dequeue('skaterQueue').delay(1500)).then(function() {
 		if (pause !== true) {
 			handlePos();
 		}
-	})
-};
+	});
+},
 
-var handlePos = function handlePos() {
+handlePos = function handlePos() {
     "use strict";
     var i, r = possiblePaths.shift().split(',',16), newpos = [], v, p = 0, next = [], curpos, s = 0;
     for (p; p < r.length; p += 1) {
@@ -1636,31 +1614,39 @@ var handlePos = function handlePos() {
     for (s; s < poz.length; s += 1) {
         poz[newpos[s]] = s;
     }
-    myInit(newpos);
-};
+    initialize(newpos);
+},
 
-var checkQueue = function checkQueue() {
-	"use strict";
-	if (pause === true) {
-		return;
-	}
-	// wait for last queue to be finished
-	if (!!$('#vh-foot2-15') && $('#vh-foot2-15').queue('fx').length === 0) {
-		handlePos();
-	}
-
-};
-
-var debug = function debug() {
+/**
+ * For the curious
+ */
+debugInfo = function debugInfo() {
+    if (hamilton === undefined) {
+        hamilton = new Hamilton(hashtable);
+        hamilton.HamiltonPath(2);
+    }
     console.log('Total possible Hamiltonian cycles : ' + hamilton.lib.length);
-    console.log('Currently consumed cycles : ' + hamilton.pathCount);
+    console.log('Currently consumed cycles : ' + (hamilton.lib.length - possiblePaths.length));
     console.log('Node-position map : ' + poz);
     console.log('Paused : ' + pause);
     console.log('Debug : ' + debugMode);
-    return true;
-};
+},
 
-var myanimate = function(controlls, target, amt, txt) {
+doPause = function doPause() {
+	"use strict";
+	if (pause === false) {
+		pause = true;
+		$('#pause').html('run');
+		console.log("Paused...");
+	} else {
+		pause = false;
+		$('#pause').html('pause');
+        handlePos();
+		console.log("Running...");
+	}
+},
+
+toggleControlls = function toggleControlls(controlls, target, amt, txt) {
     controlls.animate({ left: amt });
     target.html('&nbsp;' + txt);
 };
@@ -1668,10 +1654,10 @@ var myanimate = function(controlls, target, amt, txt) {
 $("#open").click(function() {
     var controlls = $("#controlls");
     if (parseInt(controlls.css('left'), 10) < 0) {
-        myanimate(controlls, $(this), '10px', '&laquo;');
-        window.setTimeout(myanimate, 4000, controlls, $(this), '-51px', '&raquo;');
+        toggleControlls(controlls, $(this), '10px', '&laquo;');
+        window.setTimeout(toggleControlls, 4000, controlls, $(this), '-51px', '&raquo;');
     } else {
-        myanimate(controlls, $(this), '-51px', '&raquo;');
+        toggleControlls(controlls, $(this), '-51px', '&raquo;');
     }
 });
 
@@ -1679,24 +1665,17 @@ $("#openinfo").click(function() {
     var info = $("#info"), wdth;
     wdth = info.width();
     if (parseInt(info.css('left'), 10) < 0) {
-        myanimate(info, $(this), '10px', '&laquo;');
-        window.setTimeout(myanimate, 4000, info, $(this), (-wdth + 4), '&raquo;');
+        toggleControlls(info, $(this), '10px', '&laquo;');
+        window.setTimeout(toggleControlls, 4000, info, $(this), (-wdth + 4), '&raquo;');
     } else {
-        myanimate(info, $(this), (-wdth + 4), '&raquo;');
+        toggleControlls(info, $(this), (-wdth + 4), '&raquo;');
     }
 });
 
-var possiblePaths;
-
-$(window).load(function() {
-//    var hamilton = new Hamilton(hashtable);
-//    hamilton.HamiltonPath(2);
+$(function() {
     possiblePaths = paths;
-//    possiblePaths = hamilton.lib;
     
-    $("#info").css('left',(- $("#info").width() + 4))
-	myInit(poz);
- //   setInterval(function() { checkQueue(); }, 500);
-//  $('#vh-canvas div').promise().done(handlePos());
+    $("#info").css('left',(- $("#info").width() + 4));
+	initialize(poz);
 });
 
