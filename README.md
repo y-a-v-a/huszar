@@ -28,3 +28,6 @@ from the console. A variable ```hamilton``` will refer to an instance of ```Hami
 * http://en.wikipedia.org/wiki/Hamiltonian_cycle
 
 
+![](https://raw.github.com/y-a-v-a/huszar/master/var/skater.png)
+
+
