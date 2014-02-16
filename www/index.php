@@ -33,8 +33,21 @@
 			<div id="year" class="legend">2012</div>
 			<div id="title" class="legend">HOMMAGE.</div>
 			<div id="name" class="legend">YAVA.</div>
+			<?php for($i = 0; $i < 16; $i++) : ?>
+				<div id="vh-wrap-<?=$i?>" class="vh-wrap">
+					<div id="vh-head-<?=$i?>" class="vh-black"></div>
+					<div id="vh-body-<?=$i?>" class="vh-green"></div>
+					<div id="vh-limb-<?=$i?>" class="vh-orange"></div>
+					<div id="vh-leg1-<?=$i?>" class="vh-orange"></div>
+					<div id="vh-leg2-<?=$i?>" class="vh-orange"></div>
+					<div id="vh-foot1-<?=$i?>" class="vh-black"></div>
+					<div id="vh-foot2-<?=$i?>" class="vh-black"></div>
+					<div id="vh-pos-<?=$i?>" style="visibility: hidden;"><?=$i?></div>
+				</div>
+			<?php endfor; ?>
 		</div>
-		<script src="jquery.js"></script>
+		<!--script src="jquery.js"></script-->
+		<script src="jquery-2.0.3.min.js"></script>
 		<script src="huszar.js"></script>
 		<script>
 		var _gaq=_gaq||[];_gaq.push(["_setAccount","UA-16179947-14"]);_gaq.push(["_setDomainName","vilmos-huszar.org"]);_gaq.push(["_trackPageview"]);(function(){var e=document.createElement("script");e.type="text/javascript";e.async=true;e.src=("https:"==document.location.protocol?"https://ssl":"http://www")+".google-analytics.com/ga.js";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)})()

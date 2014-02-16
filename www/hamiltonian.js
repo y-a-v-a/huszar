@@ -5,7 +5,7 @@
  * Based upon http://stackoverflow.com/questions/5766160/enumerate-all-hamiltonian-paths#answer-7193700
  * Hamiltonian cycle javascript class, see also http://en.wikipedia.org/wiki/Hamiltonian_cycle
  */
-var Hamilton = function(graph) {
+var Hamilton = function (graph) {
     "use strict";
     this.graph = graph;
     this.graphLength = graph.length;
@@ -25,9 +25,8 @@ Hamilton.prototype = {
         if (this.graph[first][last] === 1
                 && this.graph[first][last] === this.graph[last][first]) {
             return true;
-        } else {
-            return false;
         }
+        return false;
     },
 
     isOnPath : function (target, foundPath) {
@@ -53,7 +52,7 @@ Hamilton.prototype = {
                     if (this.isCycle(this.path, graph)) {
                         this.pathCount += 1;
                         // console.log(this.pathCount + " : " + this.path);
-                         this.lib.push(this.path.toString());
+                        this.lib.push(this.path.toString());
                     }
                     l -= 1;
                     continue;

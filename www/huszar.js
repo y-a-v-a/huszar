@@ -1599,7 +1599,7 @@ var hashtable = [
 	[1,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0]
 ];
 
-var myInit = function(pos) {
+var myInit = function myInit(pos) {
 	"use strict";
 	var i,j,p,l,k;
 	for (i = 0; i < pos.length; i += 1) {
@@ -1611,42 +1611,25 @@ var myInit = function(pos) {
 				p[k] =  parseInt(positions[pos[i]][j][l] * 0.5, 10);
 				l += 1;
 			}
-			$('#vh-' + j + '-' + i).animate(p, 800).delay(1500);
+			$('#vh-' + j + '-' + i).animate(p, {duration: 800, queue: 'myanimatee'});
 		}
 	}
+
+	$.when($('#vh-canvas div').dequeue('myanimatee').delay(1500)).then(function() {
+		if (pause !== true) {
+			handlePos();
+		}
+	})
 };
 
-var setUpInstances = function() {
-	"use strict";
-	var i = 0, wrapper;
-	for (i; i < 16; i += 1) {
-		wrapper = $('<div/>', { id: 'vh-wrap-'+ i, 'class' : 'vh-wrap' });
-	    $('<div/>', { id : 'vh-head-' + i, 'class' : 'vh-black' }).appendTo(wrapper);
-		$('<div/>', { id : 'vh-body-' + i, 'class' : 'vh-green' }).appendTo(wrapper);
-		$('<div/>', { id : 'vh-limb-' + i, 'class' : 'vh-orange' }).appendTo(wrapper);
-		$('<div/>', { id : 'vh-leg1-' + i, 'class' : 'vh-orange' }).appendTo(wrapper);
-		$('<div/>', { id : 'vh-leg2-' + i, 'class' : 'vh-orange' }).appendTo(wrapper);
-		$('<div/>', { id : 'vh-foot1-' + i, 'class' : 'vh-black' }).appendTo(wrapper);
-		$('<div/>', { id : 'vh-foot2-' + i, 'class' : 'vh-black' }).appendTo(wrapper);
-		if (!!debugMode) {
-		    $('<div/>', { id : 'vh-pos-' + i}).text(i).appendTo(wrapper);
-	    } else {
-		    $('<div/>', { id : 'vh-pos-' + i, style: 'visibility: hidden;' }).text(i).appendTo(wrapper);
-	    }
-		
-		wrapper.appendTo('#vh-canvas');
-	}
-	myInit(poz);
-};
-
-var handlePos = function() {
+var handlePos = function handlePos() {
     "use strict";
     var i, r = possiblePaths.shift().split(',',16), newpos = [], v, p = 0, next = [], curpos, s = 0;
     for (p; p < r.length; p += 1) {
         next[p] = r[p] - 1;
     }
     for (i = 0; i < 16; i += 1) {
-       curpos = parseInt($('#vh-pos-' + poz[i]).text(), 10);
+        curpos = parseInt($('#vh-pos-' + poz[i]).text(), 10);
         v = ((curpos + 1) == 16) ? 0 : curpos + 1;
         newpos[poz[next[i]]] = parseInt(next[v], 10);
     }
@@ -1654,9 +1637,9 @@ var handlePos = function() {
         poz[newpos[s]] = s;
     }
     myInit(newpos);
-}
+};
 
-var checkQueue = function() {
+var checkQueue = function checkQueue() {
 	"use strict";
 	if (pause === true) {
 		return;
@@ -1665,9 +1648,10 @@ var checkQueue = function() {
 	if (!!$('#vh-foot2-15') && $('#vh-foot2-15').queue('fx').length === 0) {
 		handlePos();
 	}
+
 };
 
-var debug = function() {
+var debug = function debug() {
     console.log('Total possible Hamiltonian cycles : ' + hamilton.lib.length);
     console.log('Currently consumed cycles : ' + hamilton.pathCount);
     console.log('Node-position map : ' + poz);
@@ -1711,7 +1695,8 @@ $(window).load(function() {
 //    possiblePaths = hamilton.lib;
     
     $("#info").css('left',(- $("#info").width() + 4))
-    setUpInstances();
-    setInterval(function() { checkQueue(); }, 500);
+	myInit(poz);
+ //   setInterval(function() { checkQueue(); }, 500);
+//  $('#vh-canvas div').promise().done(handlePos());
 });
 
