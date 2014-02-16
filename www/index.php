@@ -46,7 +46,6 @@
 				</div>
 			<?php endfor; ?>
 		</div>
-		<!--script src="jquery.js"></script-->
 		<script src="jquery-2.0.3.min.js"></script>
 		<script src="huszar.js"></script>
 		<script>
