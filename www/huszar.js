@@ -9,7 +9,6 @@ if (typeof console === "undefined" || typeof console.log === "undefined") {
 }
 
 var pause = false,
-debugMode = false,
 hamilton,
 possiblePaths,
 poz = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
@@ -1620,7 +1619,7 @@ handlePos = function handlePos() {
 /**
  * For the curious
  */
-debugInfo = function debugInfo() {
+huszarDebugInfo = function huszarDebugInfo() {
     if (hamilton === undefined) {
         hamilton = new Hamilton(hashtable);
         hamilton.HamiltonPath(2);
@@ -1629,7 +1628,6 @@ debugInfo = function debugInfo() {
     console.log('Currently consumed cycles : ' + (hamilton.lib.length - possiblePaths.length));
     console.log('Node-position map : ' + poz);
     console.log('Paused : ' + pause);
-    console.log('Debug : ' + debugMode);
 },
 
 doPause = function doPause() {
