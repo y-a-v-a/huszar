@@ -9,7 +9,7 @@ The idea was to let all skaters move one position at a time and to make a closin
 
 Initially, I let the browser calculate all possible paths within the painting and put them in an array. Then I let the animation pop from this array to animate the skaters. Most modern browsers are able to do a heavy calculation like the Hamiltonian cycle on this amount of nodes, but especially IE versions got stuck. Since there's no real need to recalculate all paths at every request / visit, I let Node.js calculate them and add all paths to the codebase.
 
-Originally I found a description on _StackOverflow_ showing a __Java__ class that does a brute force check on nodes to see if a Hamiltonian cycle was possible: http://stackoverflow.com/questions/5766160/enumerate-all-hamiltonian-paths#answer-7193700
+Originally I found a description on _StackOverflow_ showing a __Java__ class that does a recursive check on nodes to see if a Hamiltonian cycle was possible: http://stackoverflow.com/questions/5766160/enumerate-all-hamiltonian-paths#answer-7193700
 
 #### For the curious
 
