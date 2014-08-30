@@ -1,7 +1,7 @@
 #HUSZÁR
 ####by y-a-v-a.org 2010-2014
 
-This project was set up to see if it was possible to animate a painting by the artist __Vilmos Huszár__ in JavaScript using mostly jQuery. The painting is called _Compositie II (schaatsenrijders)_, painted in 1917 and is owned by [Gemeente Museum Den Haag](http://www.gemeentemuseum.nl/collection/item/6847).
+This project was set up to see if it was possible to animate a painting by the artist __Vilmos Huszár__ in JavaScript using mostly jQuery. The painting is called _Compositie II (schaatsenrijders)_ (_Composition II (ice skaters)_), painted in 1917 and is owned by [Gemeente Museum Den Haag](http://www.gemeentemuseum.nl/collection/item/6847).
 
 #### Concept
 
@@ -30,4 +30,5 @@ from the console. A variable ```hamilton``` will refer to an instance of ```Hami
 
 ![](https://raw.github.com/y-a-v-a/huszar/master/var/skater.png)
 
+![](https://raw.github.com/y-a-v-a/huszar/master/var/Vilmos_Huszar.jpg)
 
