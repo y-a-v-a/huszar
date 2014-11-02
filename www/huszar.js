@@ -1634,11 +1634,11 @@ doPause = function doPause() {
 	"use strict";
 	if (pause === false) {
 		pause = true;
-		$('#pause').html('run');
+		document.querySelector('#pause').innerHTML = 'run';
 		console.log("Paused...");
 	} else {
 		pause = false;
-		$('#pause').html('pause');
+		document.querySelector('#pause').innerHTML = 'pause';
         handlePos();
 		console.log("Running...");
 	}
@@ -1670,10 +1670,10 @@ $("#openinfo").click(function() {
     }
 });
 
-$(function() {
+(function() {
     possiblePaths = paths;
     
     $("#info").css('left',(- $("#info").width() + 4));
 	initialize(poz);
-});
+}());
 
