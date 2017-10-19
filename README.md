@@ -1,5 +1,5 @@
-#HUSZÁR
-####by y-a-v-a.org 2010-2014
+# HUSZÁR
+#### by y-a-v-a.org 2010-2014
 
 This project was set up to see if it was possible to animate a painting by the artist __Vilmos Huszár__ in JavaScript using mostly jQuery. The painting is called _Compositie II (schaatsenrijders)_ (_Composition II (ice skaters)_), painted in 1917 and is owned by [Gemeente Museum Den Haag](http://www.gemeentemuseum.nl/collection/item/6847).
 
